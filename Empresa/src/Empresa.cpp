@@ -66,8 +66,9 @@ double Empresa::getTotalEmpresas(){
 * @return i
 */
 istream& operator>>(istream &i, Empresa &e){
+	cin.ignore();
 	cout << "DIGITE O NOME DA EMPRESA: " << endl;
-	i >> e.m_nome;
+	getline(i, e.m_nome);
 	cout << "DIGITE O CNPJ DA EMPRESA: " << endl;
 	i >> e.m_cnpj;
 	return i;
@@ -97,7 +98,7 @@ void Empresa::cadastrarFuncionario(){
 			m_funcionarios[totalFuncionario++] = funcionario;
 			cout << "FUNCIONARIO DE NOME " << m_funcionarios[totalFuncionario-1].getNome()
 					<< " COM SALARIO " << m_funcionarios[totalFuncionario-1].getSalario()
-					<< " ADMITIDO DESDE O DIA " << m_funcionarios[totalFuncionario-1].getData() << " CADASTRADO COM SUCESSO!" << endl;
+					<< " REAIS, ADMITIDO DESDE O DIA " << m_funcionarios[totalFuncionario-1].getData() << " CADASTRADO COM SUCESSO!" << endl;
 			Funcionario::m_totalFunc++;
 			cout << endl;
 		}else{

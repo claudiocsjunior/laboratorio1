@@ -4,22 +4,31 @@
  *  Created on: 30/03/2018
  *      Author: claudio
  */
-#include "Jogador.h"
-#include "Jogo.h"
+#include "../include/Jogador.h"
+#include "../include/Jogo.h"
 #include <iostream>
 #include <string>
 
+/**
+* @brief Construtor para o jogo
+*/
 Jogo::Jogo() {
 	// TODO Auto-generated constructor stub
 
 }
 
+/**
+* @brief Destrutor para o jogo
+*/
 Jogo::~Jogo() {
 	// TODO Auto-generated destructor stub
 }
 
 int Jogo::m_pontuacaoTeto = 0;
 
+/**
+* @brief Métodos getters e setters
+*/
 const Jogador* Jogo::getJogadores() const {
 	return m_jogadores;
 }
@@ -45,15 +54,6 @@ void Jogo::setQuantidadeJogadoresAtivosPartida(
 	m_quantidadeJogadoresAtivosPartida = quantidadeJogadoresAtivosPartida;
 }
 
-int Jogo::getQuantidadejogadoresParadosRodada() const {
-	return m_QuantidadejogadoresParadosRodada;
-}
-
-void Jogo::setQuantidadejogadoresParadosRodada(
-		int quantidadejogadoresParadosRodada) {
-	m_QuantidadejogadoresParadosRodada = quantidadejogadoresParadosRodada;
-}
-
 int Jogo::getRodada() const {
 	return m_rodada;
 }
@@ -70,6 +70,10 @@ void Jogo::setVencedor(Jogador* vencedor) {
 	m_vencedor = vencedor;
 }
 
+
+/**
+* @brief Método para definições iniciais pré-jogo
+*/
 void Jogo::definicoesIniciais(){
 	cout << "BEM VINDO" << endl;
 	cout << "DIGITE A QUANTIDADE LIMITE DE PONTOS: " << endl;
@@ -80,13 +84,18 @@ void Jogo::definicoesIniciais(){
 	cin >> quantJogadores;
 	}while(quantJogadores > 10);
 	m_quantidadeJogadores = quantJogadores;
+	m_quantidadeJogadoresAtivosPartida = quantJogadores;
 	cout << endl;
 }
 
+/**
+* @brief Método para criar jogadores
+*/
 void Jogo::criarJogadores(){
 	cout << "<<<ADICINANDO JOGADORES>>>" << endl;
 	for(int i = 0; i < m_quantidadeJogadores; i++){
 		cout << "JOGADOR " << i+1 << endl;
+		cin.ignore();
 		Jogador jogador;
 		cin >> jogador;
 		m_jogadores[i] = jogador;
@@ -95,13 +104,19 @@ void Jogo::criarJogadores(){
 	}
 }
 
+
+/**
+* @brief Método de execução das rodadas
+*/
 void Jogo::executarRodadas(){
 	int jogadoresParados = 0;
 	m_rodada++;
 	cout << "<<RODADA " << m_rodada << ">>"<< endl;
-
+	/** @brief	Executa a varredura do vetor de jogadores para cada um efetuar sua jogada*/
 	for(int i = 0; i < m_quantidadeJogadores; i++){
+		/** @brief verifica se o jogar em questão foi eliminado*/
 		if(m_jogadores[i].getEliminado() == 0){
+			/** @brief Escolha da jogada do jogador*/
 			int valorDado = 0;
 			cout << "JOGADOR " << m_jogadores[i].getNome() << " FAÇA SUA ESCOLHA PARA A RODADA"<< endl;
 			int escolha;
@@ -110,7 +125,7 @@ void Jogo::executarRodadas(){
 			do{
 			cin >> escolha;
 			}while(escolha > 2 || escolha < 1);
-
+			/** @brief Verificação de qual jogada o jogador optou por fazer*/
 			if(escolha == 1){
 				valorDado = m_jogadores[i].jogarDado();
 				cout << "VALOR DADO: " << valorDado << endl;
@@ -118,14 +133,14 @@ void Jogo::executarRodadas(){
 				jogadoresParados++;
 				m_jogadores[i].pararNaRodada();
 			}
-
+			/** @brief Chama a função que verifica a pontuação do jogador*/
 			int statusJogador = verificarPontuacaoJogador(m_jogadores[i]);
 			if(statusJogador == 0){
 				cout << "AINDA NÃO GANHOU. PONTUAÇÃO: " << m_jogadores[i].getPontuacao() << endl;
 			}
 			else if(statusJogador == 1){
 				cout << "ELIMINADO, EXCEDEU O LIMTE. PONTUAÇÃO: " << m_jogadores[i].getPontuacao() << endl;
-				//verificar a quantidade de jogadores eliminados
+				m_quantidadeJogadoresAtivosPartida--;
 			}
 			else if(statusJogador == 2){
 				cout << "GANHOU! PONTUAÇÃO: " << m_jogadores[i].getPontuacao() << endl;
@@ -134,24 +149,36 @@ void Jogo::executarRodadas(){
 		}else{
 			jogadoresParados++;
 		}
+		/** @brief Verifica se há apenas um jogador ativo na partida. Se sim, este é o campeão.*/
+		if(m_quantidadeJogadoresAtivosPartida == 1){
+			for(int j = 0; j < m_quantidadeJogadores; j++){
+				if(m_jogadores[j].getEliminado() == 0){
+					m_vencedor = &m_jogadores[j];
+				}
+			}
+			break;
+		}
 
 	}
 
 	cout << endl;
 	cout << "RESUMO RODADA " << m_rodada << endl;
+	/** @brief Verifica se todos os jogadores pararam na rodada. Se sim, acha o campeão.*/
 	if(jogadoresParados == m_quantidadeJogadores){
 		cout << "TODOS OS JOGADORES PARARAM" << endl;
 		acharGanhador();
 	}
-
+	/** @brief Chama a função de resumo da rodada*/
 	resumoRodada();
 
-	//verificar se todos os jogadores pararam - se sim finaliza o jogo
-	//verificar se resta apenas um jogador com menos da pontunação limite - se sim - campeão
-	//mostrar o campeao de cada rodada
 
 }
 
+/**
+* @brief Método que verifica a pontuação do jogador
+* @param Jogador Objeto que será usado para a verificação da pontuação
+* return status atual do jogador no jogo
+*/
 int Jogo::verificarPontuacaoJogador(Jogador &jogador){
 	if(jogador.getPontuacao() < m_pontuacaoTeto){
 		return 0; //AINDA NÃO GANHOU
@@ -166,6 +193,10 @@ int Jogo::verificarPontuacaoJogador(Jogador &jogador){
 	}
 }
 
+
+/**
+* @brief Método que procura um ganhador no jogo caso todos resolvam parar na rodada
+*/
 void Jogo::acharGanhador(){
 	int maiorPontuacao = 0;
 	for(int i = 0; i < m_quantidadeJogadores; i++){
@@ -175,23 +206,57 @@ void Jogo::acharGanhador(){
 		}
 	}
 }
-
+/**
+* @brief Método mostra o resumo da rodad
+*/
 void Jogo::resumoRodada(){
 	Jogador campeaoRodada;
 	int maiorPontuacaorodada = 0;
 	for(int i = 0; i < m_quantidadeJogadores; i++){
+		/** @brief	Mostra o campeão da rodada*/
 		if(m_jogadores[i].getPontuacao() > maiorPontuacaorodada && m_jogadores[i].getPontuacao() < m_pontuacaoTeto){
 			maiorPontuacaorodada = m_jogadores[i].getPontuacao();
 			campeaoRodada = m_jogadores[i];
 		}
 
-		cout << "JOGADOR " << m_jogadores[i].getNome() << " | PONTUAÇÃO: " << m_jogadores[i].getPontuacao() << endl;
-
+		cout << "JOGADOR " << m_jogadores[i].getNome() << " | PONTUAÇÃO: " << m_jogadores[i].getPontuacao();
+		/** @brief	Verifica se o jogador foi eliminado*/
+		if(m_jogadores[i].getEliminado() == 1)
+			cout << "| ELIMINADO" << endl;
+		else
+			/** @brief	Verifica se o jogador parou na rodada*/
+			if(m_jogadores[i].getStatusRodada() == 0)
+				cout << "| PAROU " << endl;
+			else
+				cout << endl;
 
 	}
 
 	cout << endl;
-	cout << "O VENCEDOR DA RODADA FOI" << campeaoRodada.getNome() << endl;
+	cout << "O VENCEDOR DA RODADA FOI " << campeaoRodada.getNome() << endl;
+}
+
+/**
+* @brief Método para verificar se já há algum campeão.
+* return 0 caso não tenho e 1 caso tenho um campeão
+*/
+int Jogo::verificarCampeao(){
+	int retorno = 0;
+	if(m_vencedor != NULL){
+		retorno = 1;
+	}
+	return retorno;
+}
+
+/**
+* @brief Método para printar o campeão do jogo
+*/
+void Jogo::printarCampeao(){
+	cout << "FIM DE JOGO" << endl;
+	cout << endl;
+	cout << "<<<<VENCEDOR>>>>>" << endl;
+	cout << "JOGADOR " << m_vencedor->getNome() << endl;
+	cout << "PONTUAÇÃO " << m_vencedor->getPontuacao() << endl;
 }
 
 

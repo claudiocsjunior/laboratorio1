@@ -58,7 +58,7 @@ int Jogador::getStatusRodada() const {
 * @return i
 */
 istream& operator>>(istream &i, Jogador &j){
-	cout << "DIGITE O NOME DO JOGADOR: " << endl;
+	cout << "DIGITE O NOME DO JOGADOR: ";
 	i >> j.m_nome;
 	return i;
 }

@@ -7,7 +7,8 @@
 
 #include "../include/Funcionario.h"
 #include "../include/Empresa.h"
-
+#include <string>
+#include <iostream>
 /**
 * @Construtor
 */
@@ -73,8 +74,9 @@ void Funcionario::setSalario(double salario) {
 * @return a
 */
 istream& operator>>(istream &a, Funcionario &f){
+	cin.ignore();
 	cout << "DIGITE O NOME DO FUNCIONÁRIO: " << endl;
-	a >> f.m_nome;
+	getline(a, f.m_nome);
 	cout << "DIGITE O SALARIO DO FUNCIONÁRIO: " << endl;
 	a >> f.m_salario;
 	cout << "DIGITE A DATA DE ADIMISSÃO NO FORMATO DD/MM/AAAA: " << endl;
@@ -90,7 +92,7 @@ istream& operator>>(istream &a, Funcionario &f){
 * @return e
 */
 ostream& operator<<(ostream &e, Funcionario const f){
-	e << "NOME: "<< f.m_nome << "| SALÁRIO: " << f.m_salario << "| DATA DE ADMISSÃO: " <<  f.m_data << endl;
+	e << "NOME: "<< f.m_nome << "| SALÁRIO: " << f.m_salario << " REAIS | DATA DE ADMISSÃO: " <<  f.m_data << endl;
 	return e;
 }
 

@@ -173,7 +173,6 @@ void Funcionalidades::funcionalidadeMediaFuncionarioEmpresa(){
 * @param empresaLogada inteiro que contém a posição da empresa selecionada
 */
 void Funcionalidades::FuncionalidadeNovoFuncionario(EmpresaConjunto &empresaConjunto, int empresaLogada){
-	cout << "Empresa logada: " << empresaLogada << endl;
 	/** @brief Chama o método para cadastrar os funcionários*/
 	empresaConjunto.getEmpresas(empresaLogada).cadastrarFuncionario();
 }
