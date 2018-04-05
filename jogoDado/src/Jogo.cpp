@@ -54,15 +54,6 @@ void Jogo::setQuantidadeJogadoresAtivosPartida(
 	m_quantidadeJogadoresAtivosPartida = quantidadeJogadoresAtivosPartida;
 }
 
-int Jogo::getQuantidadejogadoresParadosRodada() const {
-	return m_QuantidadejogadoresParadosRodada;
-}
-
-void Jogo::setQuantidadejogadoresParadosRodada(
-		int quantidadejogadoresParadosRodada) {
-	m_QuantidadejogadoresParadosRodada = quantidadejogadoresParadosRodada;
-}
-
 int Jogo::getRodada() const {
 	return m_rodada;
 }

@@ -139,6 +139,7 @@ int Funcionalidades::funcionalidadeSelecionarEmpresa(EmpresaConjunto &empresaCon
 				cout << empresa;
 			}
 		}
+
 		cout << "DIGITE O ID DA SUA EMPRESA" << endl;
 		cin >> escolhaEmpresa;
 	}else{

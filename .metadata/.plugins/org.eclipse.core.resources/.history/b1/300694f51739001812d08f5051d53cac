@@ -34,6 +34,9 @@ public:
 	int getQuantidadeJogadoresAtivosPartida() const; /**<Método get para a quantidade de jogadores ativos na partida*/
 	void setQuantidadeJogadoresAtivosPartida(
 			int quantidadeJogadoresAtivosPartida); /**<Método set para a quantidade de jogadores ativos na partida*/
+	int getQuantidadejogadoresParadosRodada() const;
+	void setQuantidadejogadoresParadosRodada(
+			int quantidadejogadoresParadosRodada);
 	int getRodada() const; /**<Método get para a rodada da partida*/
 	void setRodada(int rodada); /**<Método set para a rodada da partida*/
 	Jogador* getVencedor() const; /**<Método get o vencedor da partida*/

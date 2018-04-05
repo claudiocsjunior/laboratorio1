@@ -43,7 +43,7 @@ void Funcionalidades::executarFuncionalidades(){
 			funcionalidadeMediaFuncionarioEmpresa();
 		}
 		/** @brief Caso o valor selecionado do menu principal seja apenas referente a empresa, abre um sub menu*/
-		if(menuPrinc != 0 && menuPrinc != 3 && Empresa::m_totalEmpresas > 0){
+		if(menuPrinc != 0 && menuPrinc != 3){
 			do{
 				/** @brief Sub-menu de escolha para as funcionlidades referentes a empresa selecionada no momento*/
 				menuInterno = funcionalidadeEmpresa();
@@ -128,22 +128,25 @@ int Funcionalidades::funcionalidadeEmpresa(){
 * @return numero correspondente ao sub-menu selecionado
 */
 int Funcionalidades::funcionalidadeSelecionarEmpresa(EmpresaConjunto &empresaConjunto){
-	int escolhaEmpresa = 0;
-	if(Empresa::m_totalEmpresas > 0){
-		Empresa empresa;
-		cout << "ESCOLHA A SUA EMPRESA DENTRE AS LISTADAS:" << endl;
-		for(int i=0; i<40; i++){
-			empresa = empresaConjunto.getEmpresas(i);
-			if(empresa.getNome() != "\0"){
-				cout << "ID: "<< i << "  --- ";
-				cout << empresa;
-			}
+	int escolhaEmpresa;
+	int existeEmpresa = 0;
+	Empresa empresa;
+	cout << "ESCOLHA A SUA EMPRESA DENTRE AS LISTADAS:" << endl;
+	for(int i=0; i<40; i++){
+		empresa = empresaConjunto.getEmpresas(i);
+		if(empresa.getNome() != "\0"){
+			cout << "ID: "<< i << "  --- ";
+			cout << empresa;
+		}else if(empresa.getNome() == "\0" && i == 0){
+			cout << "AINDA NÃO TEMOS NENHUMA EMPRESA CADASTRADA" << endl;
 		}
-		cout << "DIGITE O ID DA SUA EMPRESA" << endl;
-		cin >> escolhaEmpresa;
-	}else{
-		cout << "AINDA NÃO TEMOS NENHUMA EMPRESA CADASTRADA" << endl;
+
 	}
+	if(){
+
+	}
+	cout << "DIGITE O ID DA SUA EMPRESA" << endl;
+	cin >> escolhaEmpresa;
 	return escolhaEmpresa;
 }
 
