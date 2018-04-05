@@ -1,0 +1,82 @@
+/*
+ * Empresa.cpp
+ *
+ *  Created on: 23/03/2018
+ *      Author: claudio
+ */
+
+#include "Empresa.h"
+#include "Funcionario.h"
+#include <string>
+#include <iostream>
+using namespace std;
+
+Empresa::Empresa() {
+	// TODO Auto-generated constructor stub
+
+}
+
+const string& Empresa::getCnpj() const {
+	return m_cnpj;
+}
+
+void Empresa::setCnpj(const string& cnpj) {
+	m_cnpj = cnpj;
+}
+
+int Empresa::getId() const {
+	return m_id;
+}
+
+const string& Empresa::getNome() const {
+	return m_nome;
+}
+
+void Empresa::setNome(const string& nome) {
+	m_nome = nome;
+}
+
+istream& operator>>(istream &i, Empresa &e){
+	cout << "DIGITE O NOME DA EMPRESA: " << endl;
+	i >> e.m_nome;
+	cout << "DIGITE O CNPJ DA EMPRESA: " << endl;
+	i >> e.m_cnpj;
+	return i;
+}
+
+void Empresa::cadastrarFuncionario(){
+	Funcionario funcionario;
+	cin >> funcionario;
+	//int retornoEmpresa = 0; //retorna a empresa 0 caso não adicione outra;
+	if(totalFuncionario < 40){
+		m_funcionarios[totalFuncionario++] = funcionario;
+		cout << "FUNCIONARIO DE NOME " << m_funcionarios[totalFuncionario-1].getNome()
+				<< " COM SALARIO " << m_funcionarios[totalFuncionario-1].getSalario()
+				<< " ADMITIDO DESDE O DIA " << m_funcionarios[totalFuncionario-1].getData() << " CADASTRADO COM SUCESSO!" << endl;
+		cout << endl;
+	}else{
+		cout << "ERRO AO ADICIONAR UM NOVO FUNCIONÁRIO, EXCEDEU O LIMITE!" << endl;
+		cout << endl;
+	}
+}
+
+ostream& operator<<(ostream &o, Empresa const e){
+	o << "NOME: "<<e.m_nome << " CNPJ: " << e.m_cnpj << endl;
+	return o;
+}
+
+void Empresa::listarFuncionarios(Empresa &empresa){
+	Funcionario funcionario;
+	cout << "<<EMPRESA>>" << endl;
+	cout << empresa;
+
+	cout << "<<FUNCIONÁRIOS>>"
+	for(int i=0; i < totalFuncionario; i++){
+
+	}
+}
+
+Empresa::~Empresa() {
+	// TODO Auto-generated destructor stub
+}
+

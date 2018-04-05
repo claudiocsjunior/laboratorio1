@@ -1,0 +1,39 @@
+/*
+ * Funcionalidades.h
+ *
+ *  Created on: 24/03/2018
+ *      Author: claudio
+ */
+
+#ifndef FUNCIONALIDADES_H_
+#define FUNCIONALIDADES_H_
+
+#include <iostream>
+#include "EmpresaConjunto.h"
+#include "Empresa.h"
+using namespace std;
+
+class Funcionalidades {
+private:
+	int menuPricipal; /**<inteiro para seleção do Menu Principal*/
+	int menuEmpresa; /**<inteiro para seleção de quando uma empresa está logada - quando uma empresa é selecionada ou criada*/
+	int posicaoEmpresaLogada; /**<inteiro que guarda a posição da empresa selecionada do vetor*/
+public:
+	/** @brief Construtor e Destrutor para as funcionalidades*/
+	Funcionalidades();
+	virtual ~Funcionalidades();
+
+	/** @brief Métodos*/
+	void executarFuncionalidades(); /**<Método para iniciar a execução das funcionalidades*/
+	int verificarMenuPrincipal(); /**<Método para verificar a seleção do menu principal*/
+	int funcionalidadeNovaEmpresa(EmpresaConjunto &empresaConjunto); /**<Método para adicionar uma nova empresa*/
+	int funcionalidadeEmpresa(); /**<Método de seleção de menu quando uma empresa for selecionada*/
+	int funcionalidadeSelecionarEmpresa(EmpresaConjunto &empresaConjunto); /**<Método para selecionar uma empresa*/
+	void funcionalidadeMediaFuncionarioEmpresa(); /**<Método para calcular a média de funcionários por empresas*/
+	void FuncionalidadeNovoFuncionario(EmpresaConjunto &empresaConjunto, int empresaLogada); /**<Método para adicionar um novo funcionário - chama o método da empresa selecionada para adicionar funcionários*/
+	void FuncionalidadeListarFuncionarios(EmpresaConjunto &EmpresaConjunto, int empresaLogada);
+	void aumentarPorcentagemEmSalario(EmpresaConjunto &EmpresaConjunto, int empresaLogada);
+	void listarFuncionariosEmExperiencia(EmpresaConjunto &EmpresaConjunto, int empresaLogada);
+};
+
+#endif /* FUNCIONALIDADES_H_ */

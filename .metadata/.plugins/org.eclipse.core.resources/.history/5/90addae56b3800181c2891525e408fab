@@ -1,0 +1,24 @@
+/*
+ * EmpresaConjunto.h
+ *
+ *  Created on: 24/03/2018
+ *      Author: claudio
+ */
+
+#ifndef EMPRESACONJUNTO_H_
+#define EMPRESACONJUNTO_H_
+
+#include "Empresa.h"
+
+class EmpresaConjunto {
+private:
+	Empresa m_empresas[40];
+	int totalEmpresas = 0;
+public:
+	EmpresaConjunto();
+	virtual ~EmpresaConjunto();
+	int adicionarEmpresa(Empresa &empresa);
+	Empresa& getEmpresas(int i);
+};
+
+#endif /* EMPRESACONJUNTO_H_ */

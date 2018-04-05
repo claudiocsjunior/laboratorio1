@@ -1,0 +1,17 @@
+/*
+ * dado.h
+ *
+ *  Created on: 30/03/2018
+ *      Author: claudio
+ */
+
+#ifndef DADO_H_
+#define DADO_H_
+
+class dado {
+public:
+	dado();
+	virtual ~dado();
+};
+
+#endif /* DADO_H_ */

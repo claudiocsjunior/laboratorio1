@@ -1,0 +1,44 @@
+/*
+ * Empresa.h
+ *
+ *  Created on: 23/03/2018
+ *      Author: claudio
+ */
+
+#ifndef EMPRESA_H_
+#define EMPRESA_H_
+
+#include "Funcionario.h"
+#include <string>
+#include <iostream>
+using namespace std;
+
+class Empresa {
+private:
+	string m_nome;
+	Funcionario m_funcionarios[40];
+	string m_cnpj;
+	int totalFuncionario = 0;
+
+public:
+	Empresa();
+	virtual ~Empresa();
+	const string& getCnpj() const;
+	void setCnpj(const string& cnpj);
+	const string& getNome() const;
+	void setNome(const string& nome);
+
+	static int m_totalEmpresas;
+	static int getTotalEmpresas();
+
+
+	friend istream& operator>>(istream &i, Empresa &e);
+	void cadastrarFuncionario();
+	friend ostream& operator<<(ostream &o, Empresa const e);
+	void listarFuncionarios();
+	int getTotalFuncionario() const;
+	void aumentarPorcentagemEmSalario(int porcentagem);
+	void listarFuncionariosExp();
+};
+
+#endif /* EMPRESA_H_ */

@@ -1,0 +1,53 @@
+/*
+ * Jogo.h
+ *
+ *  Created on: 30/03/2018
+ *      Author: claudio
+ */
+
+#ifndef JOGO_H_
+#define JOGO_H_
+#include "Jogador.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+#define QUANTIDADE_MAX_JOGADORES 10
+
+class Jogo {
+private:
+	int m_quantidadeJogadoresAtivosPartida;
+	int m_QuantidadejogadoresParadosRodada;
+	int m_quantidadeJogadores = 0;
+	Jogador m_jogadores[QUANTIDADE_MAX_JOGADORES];
+	int m_rodada = 0;
+
+	Jogador * m_vencedor;
+public:
+	Jogo();
+	virtual ~Jogo();
+	const Jogador* getJogadores() const;
+
+	static int m_pontuacaoTeto;
+	static int getPontuacaoTeto();
+
+	int getQuantidadeJogadores() const;
+	void setQuantidadeJogadores(int quantidadeJogadores);
+	int getQuantidadeJogadoresAtivosPartida() const;
+	void setQuantidadeJogadoresAtivosPartida(
+			int quantidadeJogadoresAtivosPartida);
+	int getQuantidadejogadoresParadosRodada() const;
+	void setQuantidadejogadoresParadosRodada(
+			int quantidadejogadoresParadosRodada);
+	int getRodada() const;
+	void setRodada(int rodada);
+	Jogador* getVencedor() const;
+	void setVencedor(Jogador* vencedor);
+
+	void definicoesIniciais();
+	void criarJogadores();
+	void executarRodadas();
+
+};
+
+#endif /* JOGO_H_ */

@@ -1,0 +1,73 @@
+/*
+ * Funcionario.cpp
+ *
+ *  Created on: 23/03/2018
+ *      Author: claudio
+ */
+
+#include "Funcionario.h"
+#include "Empresa.h"
+
+Funcionario::Funcionario() {
+	// TODO Auto-generated constructor stub
+
+}
+
+const string& Funcionario::getData() const {
+	return m_data;
+}
+
+void Funcionario::setData(const string& data) {
+	m_data = data;
+}
+
+int Funcionario::getId() const {
+	return m_id;
+}
+
+const string& Funcionario::getNome() const {
+	return m_nome;
+}
+
+void Funcionario::setNome(const string& nome) {
+	m_nome = nome;
+}
+
+double Funcionario::getSalario() const {
+	return m_salario;
+}
+
+void Funcionario::setSalario(double salario) {
+	m_salario = salario;
+}
+
+istream& operator>>(istream &a, Funcionario &f){
+	cout << "DIGITE O NOME DO FUNCIONÁRIO: " << endl;
+	a >> f.m_nome;
+	cout << "DIGITE O SALARIO DO FUNCIONÁRIO: " << endl;
+	a >> f.m_salario;
+	cout << "DIGITE A DATA DE ADIMISSÃO NO FORMATO DD/MM/AAAA: " << endl;
+	a >> f.m_data;
+
+	return a;
+}
+
+ostream& operator<<(ostream &e, Funcionario const f){
+	e << "NOME: "<< f.m_nome << "| SALÁRIO: " << f.m_salario << "| DATA DE ADMISSÃO: " <<  f.m_data << endl;
+	return e;
+}
+
+bool Funcionario::operator==(Funcionario const &funcionarioComparacao){
+	if(m_nome == funcionarioComparacao.m_nome && m_data == funcionarioComparacao.m_data){
+		return true;
+	}
+	return false;
+}
+
+Funcionario::~Funcionario() {
+	// TODO Auto-generated destructor stub
+}
+
+int Funcionario::getTotalFunc() {
+	return totalFunc;
+}

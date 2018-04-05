@@ -1,0 +1,19 @@
+#Makefile for "jogoDoDado" C++ application (Cont.)
+#Created by Claudio da Cruz Silva Junior 03/04/2018 main.o :
+PROG = executavel
+CC = g++
+CPPFLAGS = -Wall -pedantic -std=c++11 -I./include
+#LDFLAGS = -L./lib 
+OBJS = ./bin/main.o ./bin/Jogo.o ./bin/Jogador.o ./bin/dado.o
+$(PROG):$(OBJS)
+	$(CC) $(LDFLAGS) -o $(PROG) $(OBJS)
+./duild/main.o:
+	$(CC) $(CPPFLAGS) -c src/main.cpp
+./duild/dado.o:./include/dado.h
+	$(CC) $(CPPFLAGS) -c src/dado.cpp
+./duild/Jogador.o:./include/Jogador.h
+	$(CC) $(CPPFLAGS) -c src/Jogador.cpp
+./duild/Jogo.o:./include/Jogo.h
+	$(CC) $(CPPFLAGS) -c src/Jogo.cpp
+clean:
+	rm -f core $(PROG) $(OBJS)

@@ -1,0 +1,25 @@
+#Makefile for "jogoDoDado" C++ application (Cont.)
+#Created by Claudio da Cruz Silva Junior 03/04/2018 main.o :
+PROG = executavel
+CC = g++
+CPPFLAGS = –Wall -pedantic -std=c++11 –I./include
+LDFLAGS = -L/usr/imd0030/lib –lmylib
+Diretivas para o
+ligador (linker)
+OBJS = main.o processos.o database.o util.o
+Alvo padrão
+$(CC) $(LDFLAGS) -o $(PROG) $(OBJS)
+$(CC) $(CPPFLAGS) -c processos.cpp
+database.o : database.h
+$(CC) $(CPPFLAGS) -c database.cpp
+util.o : util.h
+$(CC) $(CPPFLAGS) -c util.cpp
+Arquivos objeto definidos como pré-requisitos
+$(PROG) : $(OBJS)
+processos.o : processos.h
+Regra de
+construção do
+executável
+clean:
+Alvo “clean”
+rm -f core $(PROG) $(OBJS)

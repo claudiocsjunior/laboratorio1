@@ -1,0 +1,31 @@
+/*
+ * Jogador.h
+ *
+ *  Created on: 30/03/2018
+ *      Author: claudio
+ */
+
+#ifndef JOGADOR_H_
+#define JOGADOR_H_
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Jogador {
+private:
+	string m_nome;
+	int pontuacao = 0;
+	int eliminado = 0; //1 - eliminado | 0 - continua no jogo
+	int statusRodada = 0; //0 - parou | 1 - jogou
+public:
+	Jogador();
+	virtual ~Jogador();
+	const string& getNome() const;
+	int getPontuacao() const;
+	void setPontuacao(int pontuacao);
+	friend istream& operator>>(istream &i, Jogador &j);
+	int jogarDado();
+
+};
+
+#endif /* JOGADOR_H_ */

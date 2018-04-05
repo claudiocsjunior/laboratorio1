@@ -1,0 +1,16 @@
+#include <iostream>
+#include "Funcionario.h"
+#include "Empresa.h"
+#include "EmpresaConjunto.h"
+#include "Funcionalidades.h"
+using namespace std;
+
+int  Funcionario::totalFunc = 0;
+int  Empresa::m_totalEmpresas = 0;
+int main()
+{
+	cout << "SEJA BEM VINDO" << endl;
+	Funcionalidades iniciarFuncionalidades;
+	iniciarFuncionalidades.executarFuncionalidades();
+	return 0;
+}

@@ -1,0 +1,34 @@
+/*
+ * Funcionalidades.h
+ *
+ *  Created on: 24/03/2018
+ *      Author: claudio
+ */
+
+#ifndef FUNCIONALIDADES_H_
+#define FUNCIONALIDADES_H_
+
+#include <iostream>
+#include "EmpresaConjunto.h"
+#include "Empresa.h"
+using namespace std;
+
+class Funcionalidades {
+private:
+	int menuPricipal;
+	int menuEmpresa;
+	int posicaoEmpresaLogada;
+public:
+	Funcionalidades();
+	virtual ~Funcionalidades();
+	void executarFuncionalidades();
+	int verificarMenuPrincipal();
+	int funcionalidadeNovaEmpresa(EmpresaConjunto &empresaConjunto);
+	int funcionalidadeEmpresa();
+	int funcionalidadeSelecionarEmpresa(EmpresaConjunto &empresaConjunto);
+	void FuncionalidadeNovoFuncionario(EmpresaConjunto &empresaConjunto, int empresaLogada);
+	void FuncionalidadeListarFuncionarios(EmpresaConjunto &EmpresaConjunto, int empresaLogada);
+	void aumentarPorcentagemEmSalario(EmpresaConjunto &EmpresaConjunto, int empresaLogada);
+};
+
+#endif /* FUNCIONALIDADES_H_ */

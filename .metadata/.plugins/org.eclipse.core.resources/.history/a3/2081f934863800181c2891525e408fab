@@ -1,0 +1,70 @@
+/*
+ * Jogador.cpp
+ *
+ *  Created on: 30/03/2018
+ *      Author: claudio
+ */
+
+#include "../include/Jogador.h"
+#include "../include/dado.h"
+
+/**
+* @brief Construtor
+*/
+Jogador::Jogador() {
+	// TODO Auto-generated constructor stub
+
+}
+
+/**
+* @brief Destrutor
+*/
+Jogador::~Jogador() {
+	// TODO Auto-generated destructor stub
+}
+
+const string& Jogador::getNome() const {
+	return m_nome;
+}
+
+int Jogador::getPontuacao() const {
+	return pontuacao;
+}
+
+void Jogador::setPontuacao(int pontuacao) {
+	this->pontuacao = pontuacao;
+}
+
+istream& operator>>(istream &i, Jogador &j){
+	cout << "DIGITE O NOME DO JOGADOR: " << endl;
+	i >> j.m_nome;
+	return i;
+}
+
+int Jogador::jogarDado(){
+	statusRodada = 1;
+	dado dado1;
+	dado dado2;
+	int valorDado1 = dado1.jogar();
+	int valorDado2 = dado2.jogar();
+	pontuacao += valorDado1 + valorDado2;
+	return valorDado1 + valorDado2;
+
+}
+
+int Jogador::getEliminado() const {
+	return eliminado;
+}
+
+void Jogador::setEliminado(int eliminado) {
+	this->eliminado = eliminado;
+}
+
+int Jogador::getStatusRodada() const {
+	return statusRodada;
+}
+
+void Jogador::pararNaRodada(){
+	statusRodada = 0;
+	cout << "PAROU NESSA RODADA " << endl;
+}

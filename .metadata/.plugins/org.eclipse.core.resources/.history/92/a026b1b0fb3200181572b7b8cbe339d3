@@ -1,0 +1,44 @@
+/*
+ * Funcionario.h
+ *
+ *  Created on: 23/03/2018
+ *      Author: claudio
+ */
+
+#ifndef FUNCIONARIO_H_
+#define FUNCIONARIO_H_
+
+#include <string>
+#include <iostream>
+using namespace std;
+
+class Funcionario {
+
+private:
+	int m_id;
+	string m_nome;
+	double m_salario;
+	string m_data;
+
+	static int m_totalFuncionarios;
+
+public:
+	Funcionario();
+	virtual ~Funcionario();
+	const string& getData() const;
+	void setData(const string& data);
+	int getId() const;
+	const string& getNome() const;
+	void setNome(const string& nome);
+	double getSalario() const;
+	void setSalario(double salario);
+	friend istream& operator>>(istream &a, Funcionario &f);
+	friend ostream& operator<<(ostream &e, Funcionario const f);
+	bool operator==(Funcionario const &funcionarioComparacao);
+
+	static int getTotalFuncionarios() const {
+		return m_totalFuncionarios;
+	}
+};
+
+#endif /* FUNCIONARIO_H_ */

@@ -1,0 +1,181 @@
+/*
+ * Funcionalidades.cpp
+ *
+ *  Created on: 24/03/2018
+ *      Author: claudio
+ */
+
+#include "../include/Funcionalidades.h"
+#include "../include/Funcionario.h"
+#include "../include/Empresa.h"
+#include "../include/EmpresaConjunto.h"
+#include <iostream>
+using namespace std;
+
+/**
+* @brief Construtor para as funcionalidades
+*/
+Funcionalidades::Funcionalidades() {
+	// TODO Auto-generated constructor stub
+
+}
+
+/**
+* @brief Método base para todas as outras funcionalidades, ou seja, a funcionalidade chamada primordialmente
+*/
+void Funcionalidades::executarFuncionalidades(){
+	int menuPrinc = 0;
+	int menuInterno;
+	int empresaSelecionada;
+	EmpresaConjunto empresaConjunto;
+	/** @brief Loop até o usuário escolha a opção (0) para sair do sistema*/
+	do{
+		/** @brief Chama a função de escolha do menu principal*/
+		menuPrinc = verificarMenuPrincipal();
+		if(menuPrinc == 1){
+			/** @brief Chama o metodo para cadastrar uma nova empresa e guarda sua posição no vetor, na variável de retorno*/
+			empresaSelecionada = funcionalidadeNovaEmpresa(empresaConjunto);
+		}else if(menuPrinc == 2){
+			/** @brief Chama o metodo para selecionar uma empresa e guarda sua posição no vetor, na variável de retorno*/
+			empresaSelecionada = funcionalidadeSelecionarEmpresa(empresaConjunto);
+		}else if(menuPrinc == 3){
+			/** @brief Chama o metodo para mostrar a média de funcionários por empresa*/
+			funcionalidadeMediaFuncionarioEmpresa();
+		}
+		/** @brief Caso o valor selecionado do menu principal seja apenas referente a empresa, abre um sub menu*/
+		if(menuPrinc != 0 && menuPrinc != 3){
+			do{
+				/** @brief Sub-menu de escolha para as funcionlidades referentes a empresa selecionada no momento*/
+				menuInterno = funcionalidadeEmpresa();
+				if(menuInterno == 1)
+				{
+					/** @brief Chama o método para adicionar um novo funcionário*/
+					FuncionalidadeNovoFuncionario(empresaConjunto, empresaSelecionada);
+				}
+				else if(menuInterno == 2)
+				{
+					/** @brief Chama o método para listar todos os funcionários da empresa*/
+					FuncionalidadeListarFuncionarios(empresaConjunto, empresaSelecionada);
+				}
+				else if(menuInterno == 3)
+				{
+					/** @brief Chama o método para aumentar a porcentagem ao salário de todos os funcionários*/
+					aumentarPorcentagemEmSalario(empresaConjunto, empresaSelecionada);
+				}
+				else if(menuInterno == 4){
+					/** @brief Chama o método para listar os funcionários em periodo de experiência*/
+					listarFuncionariosEmExperiencia(empresaConjunto, empresaSelecionada);
+				}
+			}while(menuInterno != 0);
+		}
+
+	}while(menuPrinc != 0);
+
+}
+
+
+/**
+* @brief Método para escolha de valor para o menu principal
+* @return o valor numérico do menu escolhido
+*/
+int Funcionalidades::verificarMenuPrincipal(){
+	int escolhaMenu;
+	cout << "<<< MENU PRINCIPAL >>>" << endl;
+	cout << "ESCOLHA UMA DAS FUNCIONALIDADES ABAIXO:" << endl;
+	cout << "1 - NOVA EMPRESA:" << endl;
+	cout << "2 - ENTRAR NA SUA EMPRESA:" << endl;
+	cout << "3 - MEDIA DE FUNCIONARIOS POR EMPRESA" << endl;
+	cout << "0 - SAIR" << endl;
+	cin >> escolhaMenu;
+	cout << endl;
+
+	return escolhaMenu;
+}
+
+/**
+* @brief Método para adicionar uma nova empresa
+* @param empresaConjunto objeto do conjunto de empresas
+* @return numero correspondente a posição da empresa no vetor
+*/
+int Funcionalidades::funcionalidadeNovaEmpresa(EmpresaConjunto &empresaConjunto){
+	Empresa empresa;
+	int numEmpresa = empresaConjunto.adicionarEmpresa(empresa);
+	return numEmpresa;
+}
+
+/**
+* @brief Método para escolha do sub-menu (correspondente ao menu da empresa selecionada)
+* @return numero correspondente ao sub-menu selecionado
+*/
+int Funcionalidades::funcionalidadeEmpresa(){
+	int escolhaSubMenu;
+	cout << "<<<AMBIENTE EMPRESARIAL>>>" << endl;
+	cout << "ESCOHA UMA DAS FUNCIONALIDADES ABAIXO: " << endl;
+	cout << "1 - NOVO FUNCIONARIO:" << endl;
+	cout << "2 - LISTAR FUNCIONÁRIOS" << endl;
+	cout << "3 - AUMENTO AOS FUNCIONARIOS EM X%:" << endl;
+	cout << "4 - LISTAR FUNCIONARIOS NO PERIODO DE EXPERIÊNCIA:" << endl;
+	cout << "0 - VOLTAR AO MENU PRINCIPAL" << endl;
+	cin >> escolhaSubMenu;
+	cout << endl;
+	return escolhaSubMenu;
+
+}
+
+int Funcionalidades::funcionalidadeSelecionarEmpresa(EmpresaConjunto &empresaConjunto){
+	int escolhaEmpresa;
+	Empresa empresa;
+	cout << "ESCOLHA A SUA EMPRESA DENTRE AS LISTADAS:" << endl;
+	for(int i=0; i<40; i++){
+		empresa = empresaConjunto.getEmpresas(i);
+		if(empresa.getNome() != "\0"){
+			cout << "ID: "<< i << "  --- ";
+			cout << empresa;
+		}else if(empresa.getNome() == "\0" && i == 0){
+			cout << "AINDA NÃO TEMOS NENHUMA EMPRESA CADASTRADA" << endl;
+		}
+
+	}
+	cout << "DIGITE O ID DA SUA EMPRESA" << endl;
+	cin >> escolhaEmpresa;
+	return escolhaEmpresa;
+}
+
+void Funcionalidades::funcionalidadeMediaFuncionarioEmpresa(){
+	if(Empresa::m_totalEmpresas != 0){
+		cout << "A MÉDIA DE FUNCIONÁRIOS POR EMPRESA É " << Funcionario::m_totalFunc/Empresa::m_totalEmpresas << endl;
+	}
+	else
+	{
+		cout << "NÃO HÁ EMPRESAS CADASTRADAS" << endl;
+		cout << endl;
+	}
+
+	cout << endl;
+}
+
+void Funcionalidades::FuncionalidadeNovoFuncionario(EmpresaConjunto &empresaConjunto, int empresaLogada){
+	cout << "Empresa logada: " << empresaLogada << endl;
+	empresaConjunto.getEmpresas(empresaLogada).cadastrarFuncionario();
+}
+
+void Funcionalidades::FuncionalidadeListarFuncionarios(EmpresaConjunto &empresaConjunto, int empresaLogada){
+	empresaConjunto.getEmpresas(empresaLogada).listarFuncionarios();
+}
+
+
+void Funcionalidades::aumentarPorcentagemEmSalario(EmpresaConjunto &empresaConjunto, int empresaLogada){
+	int porcentagem;
+	cout << "DIGITE A PORCENTAGEM PARA AUMENTO: " << endl;
+	cin >> porcentagem;
+	empresaConjunto.getEmpresas(empresaLogada).aumentarPorcentagemEmSalario(porcentagem);
+}
+
+void Funcionalidades::listarFuncionariosEmExperiencia(EmpresaConjunto &empresaConjunto, int empresaLogada){
+	empresaConjunto.getEmpresas(empresaLogada).listarFuncionariosExp();
+}
+
+Funcionalidades::~Funcionalidades() {
+	// TODO Auto-generated destructor stub
+}
+

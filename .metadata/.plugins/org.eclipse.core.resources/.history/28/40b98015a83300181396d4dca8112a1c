@@ -1,0 +1,126 @@
+/*
+ * Empresa.cpp
+ *
+ *  Created on: 23/03/2018
+ *      Author: claudio
+ */
+
+#include "Empresa.h"
+#include "Funcionario.h"
+#include <string>
+#include <iostream>
+using namespace std;
+
+Empresa::Empresa() {
+	// TODO Auto-generated constructor stub
+
+}
+
+const string& Empresa::getCnpj() const {
+	return m_cnpj;
+}
+
+void Empresa::setCnpj(const string& cnpj) {
+	m_cnpj = cnpj;
+}
+
+int Empresa::getId() const {
+	return m_id;
+}
+
+const string& Empresa::getNome() const {
+	return m_nome;
+}
+
+void Empresa::setNome(const string& nome) {
+	m_nome = nome;
+}
+
+int Empresa::getTotalEmpresas(){
+	return m_totalEmpresas;
+}
+
+istream& operator>>(istream &i, Empresa &e){
+	cout << "DIGITE O NOME DA EMPRESA: " << endl;
+	i >> e.m_nome;
+	cout << "DIGITE O CNPJ DA EMPRESA: " << endl;
+	i >> e.m_cnpj;
+	return i;
+}
+
+void Empresa::cadastrarFuncionario(){
+	Funcionario funcionario;
+	cin >> funcionario;
+	int funcionarioExistente = 0;
+	for(int i = 0; i < totalFuncionario; i++){
+		if(m_funcionarios[i] == funcionario){
+			cout << "FUNCIONÁRIO JÁ EXISTENTE!" << endl;
+			cout << endl;
+			funcionarioExistente = 1;
+		}
+	}
+
+	if(funcionarioExistente == 0){
+		if(totalFuncionario < 40){
+			m_funcionarios[totalFuncionario++] = funcionario;
+			cout << "FUNCIONARIO DE NOME " << m_funcionarios[totalFuncionario-1].getNome()
+					<< " COM SALARIO " << m_funcionarios[totalFuncionario-1].getSalario()
+					<< " ADMITIDO DESDE O DIA " << m_funcionarios[totalFuncionario-1].getData() << " CADASTRADO COM SUCESSO!" << endl;
+			cout << endl;
+		}else{
+			cout << "ERRO AO ADICIONAR UM NOVO FUNCIONÁRIO, EXCEDEU O LIMITE!" << endl;
+			cout << endl;
+		}
+		cout << "TOTAL FUNCIONARIOS: "<< totalFuncionario << endl;
+		Funcionario::totalFunc = totalFuncionario;
+	}
+}
+
+ostream& operator<<(ostream &o, Empresa const e){
+	o << "NOME: "<<e.m_nome << " CNPJ: " << e.m_cnpj << endl;
+	return o;
+}
+
+int Empresa::getTotalFuncionario() const {
+	return totalFuncionario;
+}
+
+void Empresa::listarFuncionarios(){
+	Funcionario funcionario;
+	cout << "<<FUNCIONÁRIOS>>" << endl;
+	cout << "TOTAL: " << totalFuncionario <<endl;
+	for(int i=0; i < 40; i++){
+		funcionario = m_funcionarios[i];
+		if(funcionario.getNome() != "\0"){
+			cout << "ID: "<< i << "  --- ";
+			cout << funcionario;
+		}else if(funcionario.getNome() == "\0" && i == 0){
+			cout << "AINDA NÃO TEMOS NENHUM FUNCIONARIO CADASTRADO PARA ESTA EMPRESA" << endl;
+			cout << endl;
+		}
+	}
+}
+
+void Empresa::aumentarPorcentagemEmSalario(int porcentagem){
+	if(totalFuncionario > 0){
+		for(int i = 0; i < totalFuncionario; i++){
+			double aumento = 0;
+			double salarioModificado = 0;
+			aumento = (m_funcionarios[i].getSalario() * porcentagem)/100;
+			salarioModificado = m_funcionarios[i].getSalario() + aumento;
+			m_funcionarios[i].setSalario(salarioModificado);
+		}
+
+		cout << "AUMENTO DE SALÁRIO DE TODOS OS FUNCIONÁRIOS EM " << porcentagem <<"%!" << endl;
+		cout << endl;
+	}
+	else{
+		cout << "AINDA NÃO TEMOS NENHUM FUNCIONARIO CADASTRADO PARA ESTA EMPRESA" << endl;
+		cout << endl;
+	}
+}
+
+Empresa::~Empresa() {
+	// TODO Auto-generated destructor stub
+}
+

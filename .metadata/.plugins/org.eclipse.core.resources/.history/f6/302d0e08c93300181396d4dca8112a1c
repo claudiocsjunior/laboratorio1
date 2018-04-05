@@ -1,0 +1,26 @@
+/*
+ * Jogo.h
+ *
+ *  Created on: 30/03/2018
+ *      Author: claudio
+ */
+
+#ifndef JOGO_H_
+#define JOGO_H_
+#include "Jogador.h"
+#include <iostream>
+#include <string>
+using namespace std;
+class Jogo {
+private:
+
+	int quantidadeJogadores;
+	Jogador jogadores[quantidadeJogadores];
+	int rodada;
+	static int pontuacaoTeto;
+public:
+	Jogo();
+	virtual ~Jogo();
+};
+
+#endif /* JOGO_H_ */

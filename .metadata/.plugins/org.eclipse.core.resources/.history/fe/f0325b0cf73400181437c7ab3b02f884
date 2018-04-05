@@ -1,0 +1,15 @@
+#include <iostream>
+#include <string>
+#include "Jogador.h"
+#include "Jogo.h"
+using namespace std;
+
+int main(){
+	Jogo jogo;
+	jogo.definicoesIniciais();
+	jogo.criarJogadores();
+	//fazer uma condição de repetição de acordo com o ponteiro de vencedor
+	jogo.executarRodadas();
+
+	return 0;
+}

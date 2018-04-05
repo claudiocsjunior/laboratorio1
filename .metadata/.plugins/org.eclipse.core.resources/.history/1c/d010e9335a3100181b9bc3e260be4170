@@ -1,0 +1,106 @@
+/*
+ * Funcionalidades.cpp
+ *
+ *  Created on: 24/03/2018
+ *      Author: claudio
+ */
+
+#include "Funcionalidades.h"
+#include "Funcionario.h"
+#include "Empresa.h"
+#include "EmpresaConjunto.h"
+#include <iostream>
+using namespace std;
+
+Funcionalidades::Funcionalidades() {
+	// TODO Auto-generated constructor stub
+
+}
+
+void Funcionalidades::executarFuncionalidades(){
+	int menuPrinc;
+	int menuInterno;
+	int empresaSelecionada;
+	EmpresaConjunto empresaConjunto;
+
+	do{
+		menuPrinc = verificarMenuPrincipal();
+		if(menuPrinc == 1){
+
+			empresaSelecionada = funcionalidadeNovaEmpresa(empresaConjunto);
+			cout << "EMPRESA LOGADA - " << empresaSelecionada << endl;
+			do{
+				menuInterno = funcionalidadeEmpresa();
+			}while(menuInterno != 0);
+		}else if(menuPrinc == 2){
+			empresaSelecionada = funcionalidadeSelecionarEmpresa(empresaConjunto);
+			cout << "EMPRESA LOGADA - " << empresaSelecionada << endl;
+		}
+
+	}while(menuPrinc != 0);
+
+}
+
+
+int Funcionalidades::verificarMenuPrincipal(){
+	int escolhaMenu;
+	cout << "<<< MENU PRINCIPAL >>>" << endl;
+	cout << "ESCOHA UMA DAS FUNCIONALIDADES ABAIXO:" << endl;
+	cout << "1 - NOVA EMPRESA:" << endl;
+	cout << "2 - ENTRAR NA SUA EMPRESA:" << endl;
+	cout << "3 - MEDIA DE FUNCIONARIOS POR EMPRESA" << endl;
+	cout << "0 - SAIR" << endl;
+	cin >> escolhaMenu;
+	cout << endl;
+
+	return escolhaMenu;
+
+	//fazer try catch
+}
+
+int Funcionalidades::funcionalidadeNovaEmpresa(EmpresaConjunto &empresaConjunto){
+	//EmpresaConjunto empresaConjunto;//o problema é q estou instanciando aqui e depois estou instancia lá de novo
+	Empresa empresa;
+	int numEmpresa = empresaConjunto.adicionarEmpresa(empresa);
+	return numEmpresa;
+}
+
+int Funcionalidades::funcionalidadeEmpresa(){
+	int escolhaSubMenu;
+	cout << "<<<AMBIENTE EMPRESARIAL>>>" << endl;
+	cout << "ESCOHA UMA DAS FUNCIONALIDADES ABAIXO: " << endl;
+	cout << "1 - NOVO FUNCIONARIO:" << endl;
+	cout << "2 - AUMENTO AOS FUNCIONARIOS:" << endl;
+	cout << "3 - LISTAR FUNCIONARIOS NO PERIODO DE EXPERIÊNCIA:" << endl;
+	cout << "0 - VOLTAR AO MENU PRINCIPAL" << endl;
+	cin >> escolhaSubMenu;
+	cout << endl;
+	return escolhaSubMenu;
+
+}
+
+int Funcionalidades::funcionalidadeSelecionarEmpresa(EmpresaConjunto &empresaConjunto){
+	int escolhaEmpresa;
+	//EmpresaConjunto conjuntoDeEmpresas;
+	Empresa empresa;
+	cout << "ESCOLHA A SUA EMPRESA DENTRE AS LISTADAS:" << endl;
+	cout << "ID " << "NOME                  " << "CNPJ" << endl;
+	for(int i=0; i<40; i++){
+		empresa = empresaConjunto.getEmpresas(i);
+		if(empresa.getNome() != "\0"){
+			cout << i << " - " << empresa.getNome() << "   " << empresa.getCnpj() << endl;
+		}else if(empresa.getNome() == "\0" && i == 0){
+			cout << "AINDA NÃO TEMOS NENHUMA EMPRESA CADASTRADA" << endl;
+		}
+
+	}
+	cout << "DIGITE O ID DA SUA EMPRESA" << endl;
+	cin >> escolhaEmpresa;
+	return escolhaEmpresa;
+}
+
+
+Funcionalidades::~Funcionalidades() {
+	// TODO Auto-generated destructor stub
+}
+

@@ -1,0 +1,15 @@
+#include <iostream>
+#include <string>
+#include "Jogador.h"
+#include "Jogo.h"
+using namespace std;
+
+int main(){
+	Jogo jogo;
+	jogo.definicoesIniciais();
+	jogo.criarJogadores();
+	do{
+	jogo.executarRodadas();
+	}while(jogo.getVencedor() == null);
+	return 0;
+}

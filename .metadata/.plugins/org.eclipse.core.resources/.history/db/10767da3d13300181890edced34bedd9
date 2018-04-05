@@ -1,0 +1,18 @@
+/*
+ * dado.cpp
+ *
+ *  Created on: 30/03/2018
+ *      Author: claudio
+ */
+
+#include "dado.h"
+
+dado::dado() {
+	// TODO Auto-generated constructor stub
+
+}
+
+dado::~dado() {
+	// TODO Auto-generated destructor stub
+}
+

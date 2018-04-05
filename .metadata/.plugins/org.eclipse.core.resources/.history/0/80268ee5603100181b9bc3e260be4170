@@ -1,0 +1,55 @@
+/*
+ * Empresa.cpp
+ *
+ *  Created on: 23/03/2018
+ *      Author: claudio
+ */
+
+#include "Empresa.h"
+#include "Funcionario.h"
+#include <string>
+#include <iostream>
+using namespace std;
+
+Empresa::Empresa() {
+	// TODO Auto-generated constructor stub
+
+}
+
+const string& Empresa::getCnpj() const {
+	return m_cnpj;
+}
+
+void Empresa::setCnpj(const string& cnpj) {
+	m_cnpj = cnpj;
+}
+
+int Empresa::getId() const {
+	return m_id;
+}
+
+const string& Empresa::getNome() const {
+	return m_nome;
+}
+
+void Empresa::setNome(const string& nome) {
+	m_nome = nome;
+}
+
+istream& operator>>(istream &i, Empresa &e){
+	cout << "DIGITE O NOME DA EMPRESA: " << endl;
+	i >> e.m_nome;
+	cout << "DIGITE O CNPJ DA EMPRESA: " << endl;
+	i >> e.m_cnpj;
+	return i;
+}
+
+void Empresa::cadastrarFuncionario(){
+	Funcionario funcionario;
+	cin >> funcionario;
+}
+
+Empresa::~Empresa() {
+	// TODO Auto-generated destructor stub
+}
+

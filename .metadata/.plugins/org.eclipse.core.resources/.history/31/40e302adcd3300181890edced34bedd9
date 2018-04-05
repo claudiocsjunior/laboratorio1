@@ -1,0 +1,12 @@
+#include <iostream>
+#include <string>
+#include "Jogador.h"
+#include "Jogo.h"
+using namespace std;
+
+int main(){
+	Jogo jogo;
+	jogo.definicoesIniciais()();
+
+	return 0;
+}

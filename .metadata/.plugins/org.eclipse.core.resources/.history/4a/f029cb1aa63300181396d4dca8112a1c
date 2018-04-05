@@ -1,0 +1,142 @@
+/*
+ * Funcionalidades.cpp
+ *
+ *  Created on: 24/03/2018
+ *      Author: claudio
+ */
+
+#include "Funcionalidades.h"
+#include "Funcionario.h"
+#include "Empresa.h"
+#include "EmpresaConjunto.h"
+#include <iostream>
+using namespace std;
+
+Funcionalidades::Funcionalidades() {
+	// TODO Auto-generated constructor stub
+
+}
+
+//coisas a fazer
+//adicionar try catch - verificar os valores das variaveis de entrada
+//ajustar a string para receber espaços
+//formatar a data de adimissão, salario e o cnpj
+//ajustar o array para valores infinitos
+
+
+void Funcionalidades::executarFuncionalidades(){
+	int menuPrinc = 0;
+	int menuInterno;
+	int empresaSelecionada;
+	EmpresaConjunto empresaConjunto;
+
+	do{
+		menuPrinc = verificarMenuPrincipal();
+		if(menuPrinc == 1){
+			empresaSelecionada = funcionalidadeNovaEmpresa(empresaConjunto);
+			cout << "EMPRESA LOGADA - " << empresaSelecionada << endl;
+		}else if(menuPrinc == 2){
+			empresaSelecionada = funcionalidadeSelecionarEmpresa(empresaConjunto);
+			cout << "EMPRESA LOGADA - " << empresaSelecionada << endl;
+		}
+
+		if(menuPrinc != 0){
+			do{
+				menuInterno = funcionalidadeEmpresa();
+				if(menuInterno == 1)
+				{
+					FuncionalidadeNovoFuncionario(empresaConjunto, empresaSelecionada);
+				}
+				else if(menuInterno == 2)
+				{
+					FuncionalidadeListarFuncionarios(empresaConjunto, empresaSelecionada);
+				}
+				else if(menuInterno == 3)
+				{
+					aumentarPorcentagemEmSalario(empresaConjunto, empresaSelecionada);
+				}
+			}while(menuInterno != 0);
+		}
+
+	}while(menuPrinc != 0);
+
+}
+
+
+int Funcionalidades::verificarMenuPrincipal(){
+	int escolhaMenu;
+	cout << "<<< MENU PRINCIPAL >>>" << endl;
+	cout << "ESCOLHA UMA DAS FUNCIONALIDADES ABAIXO:" << endl;
+	cout << "1 - NOVA EMPRESA:" << endl;
+	cout << "2 - ENTRAR NA SUA EMPRESA:" << endl;
+	cout << "3 - MEDIA DE FUNCIONARIOS POR EMPRESA" << endl;
+	cout << "0 - SAIR" << endl;
+	cin >> escolhaMenu;
+	cout << endl;
+
+	return escolhaMenu;
+
+	//fazer try catch
+}
+
+int Funcionalidades::funcionalidadeNovaEmpresa(EmpresaConjunto &empresaConjunto){
+	Empresa empresa;
+	int numEmpresa = empresaConjunto.adicionarEmpresa(empresa);
+	return numEmpresa;
+}
+
+int Funcionalidades::funcionalidadeEmpresa(){
+	int escolhaSubMenu;
+	cout << "<<<AMBIENTE EMPRESARIAL>>>" << endl;
+	cout << "ESCOHA UMA DAS FUNCIONALIDADES ABAIXO: " << endl;
+	cout << "1 - NOVO FUNCIONARIO:" << endl;
+	cout << "2 - LISTAR FUNCIONÁRIOS" << endl;
+	cout << "3 - AUMENTO AOS FUNCIONARIOS EM X%:" << endl;
+	cout << "4 - LISTAR FUNCIONARIOS NO PERIODO DE EXPERIÊNCIA:" << endl;
+	cout << "0 - VOLTAR AO MENU PRINCIPAL" << endl;
+	cin >> escolhaSubMenu;
+	cout << endl;
+	return escolhaSubMenu;
+
+}
+
+int Funcionalidades::funcionalidadeSelecionarEmpresa(EmpresaConjunto &empresaConjunto){
+	int escolhaEmpresa;
+	Empresa empresa;
+	cout << "ESCOLHA A SUA EMPRESA DENTRE AS LISTADAS:" << endl;
+	for(int i=0; i<40; i++){
+		empresa = empresaConjunto.getEmpresas(i);
+		if(empresa.getNome() != "\0"){
+			cout << "ID: "<< i << "  --- ";
+			cout << empresa;
+		}else if(empresa.getNome() == "\0" && i == 0){
+			cout << "AINDA NÃO TEMOS NENHUMA EMPRESA CADASTRADA" << endl;
+		}
+
+	}
+	cout << "DIGITE O ID DA SUA EMPRESA" << endl;
+	cin >> escolhaEmpresa;
+	return escolhaEmpresa;
+}
+
+void Funcionalidades::FuncionalidadeNovoFuncionario(EmpresaConjunto &empresaConjunto, int empresaLogada){
+	cout << "Empresa logada: " << empresaLogada << endl;
+	empresaConjunto.getEmpresas(empresaLogada).cadastrarFuncionario();
+}
+
+void Funcionalidades::FuncionalidadeListarFuncionarios(EmpresaConjunto &empresaConjunto, int empresaLogada){
+	empresaConjunto.getEmpresas(empresaLogada).listarFuncionarios();
+}
+
+
+void Funcionalidades::aumentarPorcentagemEmSalario(EmpresaConjunto &empresaConjunto, int empresaLogada){
+	int porcentagem;
+	cout << "DIGITE A PORCENTAGEM PARA AUMENTO: " << endl;
+	cin >> porcentagem;
+	empresaConjunto.getEmpresas(empresaLogada).aumentarPorcentagemEmSalario(porcentagem);
+}
+
+Funcionalidades::~Funcionalidades() {
+	// TODO Auto-generated destructor stub
+}
+
