@@ -10,7 +10,7 @@ $(PROG):$(OBJS)
 main.o:
 	$(CC) $(CPPFLAGS) -c src/main.cpp
 Empresa.o:./include/Empresa.h
-	$(CC) $(CPPFLAGS) -c src/Empresa.cpp
+	$(CC) $(CPPFLAGS) -c src/Empresa.cpp -o ./build/Empresa.o
 EmpresaConjunto.o:./include/EmpresaConjunto.h
 	$(CC) $(CPPFLAGS) -c src/EmpresaConjunto.cpp
 Funcionalidades.o:./include/Funcionalidades.h
